@@ -89,6 +89,32 @@ response = agent.ask("Show me all unread Slack messages from this week.")
 print(response)
 ```
 
+### Step 6: Important installation
+```
+# create a venv if you like, then:
+pip install streamlit requests
+# The following two are provided as-is; install if you have them
+pip install mcp_use ollama
+# if these packages are not available on pip in your environment,
+# follow the mcp_use / ollama install docs and adapt the imports below.
+```
+
+### Step 7: Streamlit UI to run as application
+Python file (app.py) has the Local-RAG workflow together in one place — from the MCP client, through MindsDB tools, to a local LLM (Ollama), all wrapped in a Streamlit UI.
+```
+import streamlit as st
+
+st.title("MCP-Powered RAG")
+query = st.text_input("Ask me anything:")
+if st.button("Run"):
+    answer = agent.ask(query)
+    st.write(answer)
+```
+Run the app as below and type “List all GitHub issues assigned to me” and watch the result.
+```
+streamlit run app.py
+```
+
 
 
 
