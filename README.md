@@ -53,6 +53,42 @@ CREATE DATABASE hn_db
 WITH ENGINE = "hacker_news";
 
 ```
+You can fetch data with regular sql type query.
+
+```
+SELECT * FROM gmail_db.inbox WHERE is_unread = true;
+```
+### Step 4: Connecting MCP server and LLM
+MindsDB server can talk to our data. But how will AI agent can connect to this server.
+We need to make a server config like below JSON structure and pass it to mscp client.
+
+```
+{
+  "servers": {
+    "mindsdb": {
+      "url": "http://localhost:47334",
+      "tools": ["list_databases", "query"]
+    }
+  }
+}
+```
+### Step 5: MCP client and LLM
+Below is the example with llama3 using ollama but we can swap the LLM by changing "llama3" to "mistral" or "gemma2".
+```
+from mcp_use import MCPClient
+from ollama import ChatModel
+
+# 1. Load MCP client config
+client = MCPClient.from_config("mcp_config.json")
+# 2. Connect local LLM
+llm = ChatModel("llama3")
+# 3. Create agent
+agent = llm.bind(client)
+# 4. Run a query
+response = agent.ask("Show me all unread Slack messages from this week.")
+print(response)
+```
+
 
 
 
