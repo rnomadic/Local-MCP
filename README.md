@@ -8,3 +8,8 @@ We will be build a MCP setup that can query over 200+ different sources — all 
 1. mcp-use (a handy tool from YC S25) for the local MCP client.
 2. MindsDB for hooking into all those data sources.
 3. Ollama to run open-source LLMs locally.
+
+## Workflow
+```
+You → MCP Client → MindsDB MCP Server → Your Data Sources → LLM → Answer
+```
